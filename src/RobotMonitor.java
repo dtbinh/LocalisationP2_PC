@@ -113,7 +113,7 @@ public class RobotMonitor
     	int type = (int)NXT.input();
     	float distance = NXT.input();
     	float angle = NXT.input();
-    	//lightVal = NXT.input();
+    	lightVal = NXT.input();
     	m = new Move( (type == 0)? Move.MoveType.TRAVEL : Move.MoveType.ROTATE , 
     			distance, angle, false);
     	System.out.println("Move " + distance + " " + angle);
