@@ -6,6 +6,7 @@ import lejos.robotics.navigation.Pose;
 public class Route 
 {
 	// The route driven as seen from the robot
+	//hej
 
     private ArrayList<Point> route = new ArrayList<Point>();
     private Pose currentPose = new Pose();
