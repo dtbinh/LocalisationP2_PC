@@ -14,7 +14,12 @@ import lejos.util.Delay;
 
 public class RobotMonitor 
 {
-    private Map m = new Map(12, 1, 50);       
+	private InputOutputStreams NXT;
+	private boolean USB = false;
+	
+	
+    private Map m = new Map(12, 1, 50);     
+    private float lightVal;
     private ParticleSet particles  = new ParticleSet(1000, m);
     private Route route = new Route(0,25,0);
     private RobotGUI view = new RobotGUI(particles, m);
@@ -95,11 +100,43 @@ public class RobotMonitor
     	
     }
     
+    
+    private Move getMove()
+    {
+    	Move m;
+    	int type = (int)NXT.input();
+    	float distance = NXT.input();
+    	float angle = NXT.input();
+    	lightVal = NXT.input();
+    	m = new Move( (type == 0)? Move.MoveType.TRAVEL : Move.MoveType.ROTATE , 
+    			distance, angle, false);
+    	System.out.println("Move " + distance + " " + angle);
+    	return m;
+    }
+    
+    public void go(){
+    	
+    	while (true){
+    		
+    		move = getMove();
+        	particles.applyMove(move);        	
+        	particles.calculateWeights((int)lightVal, m);
+        	route.update(move);
+        	view.update(route.getRoute());
+        	Pose p = route.getCurrentPose();
+            System.out.println("Pose " + p.getX() + " " + p.getY() + " " + p.getHeading());
+    		
+    		
+    		
+    	}
+    }
+    
     public static void main (String [] args)
     {
     	RobotMonitor p = new RobotMonitor();
     	
-    	p.goSimulation();
+    	//p.goSimulation();
+    	p.go();
 
      }
 }
