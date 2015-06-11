@@ -29,7 +29,7 @@ public class InputOutputStreams
 		}
 		else {
 			// Connect to any NXT using Bluetooth
-			if (!conn.connectTo("btspp://")){
+			if (!conn.connectTo("btspp://001653155053")){
 				return "No NXT found using Bluetooth";
 			}
 		}

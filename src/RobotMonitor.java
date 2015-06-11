@@ -15,7 +15,7 @@ import lejos.util.Delay;
 public class RobotMonitor 
 {
 	private InputOutputStreams NXT;
-	private boolean USB = false;
+	private boolean USB = true;
 	
 	
     private Map m = new Map(12, 1, 50);     
@@ -32,7 +32,13 @@ public class RobotMonitor
         m.setColor(5, 0,  Color.BLACK);
         m.setColor(8, 0,  Color.BLACK);
    
+        String m;
     	view.update(route.getRoute());
+    	NXT = new InputOutputStreams(USB);
+        do {
+        	m = NXT.open();
+        	System.out.println(m);
+        } while ( m != "Connected");
     	Delay.msDelay(pause);
     }
     
@@ -107,7 +113,7 @@ public class RobotMonitor
     	int type = (int)NXT.input();
     	float distance = NXT.input();
     	float angle = NXT.input();
-    	lightVal = NXT.input();
+    	//lightVal = NXT.input();
     	m = new Move( (type == 0)? Move.MoveType.TRAVEL : Move.MoveType.ROTATE , 
     			distance, angle, false);
     	System.out.println("Move " + distance + " " + angle);
