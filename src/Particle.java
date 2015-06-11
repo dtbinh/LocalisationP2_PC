@@ -76,7 +76,7 @@ public class Particle
   {
 	  if ( m.getColor(pose) == Color.BLACK )
 	  {
-		  if ( lightValue > blackWhiteThreshold) 
+		  if ( lightValue < blackWhiteThreshold) 
 			  weight = 0.9f;
 		  else
 			  weight = 0.1f;
